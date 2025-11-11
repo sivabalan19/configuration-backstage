@@ -32,7 +32,7 @@ backstage = lambda config: Backstage -> any {
                         chart: {
                             name: "backstage"
                             repository: "https://backstage.github.io/charts"
-                            version: "2.5.2"
+                            version: "2.6.3" ## workaround for Bitnami chart Registry migration issue.
                         }
                         values: ValuesSchema {
                             if config.ingress.enabled:
