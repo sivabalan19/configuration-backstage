@@ -66,6 +66,18 @@ _items = [
                                     }
                                 }
                             }
+                            secretSync: [
+                                {
+                                    destRef = {
+                                        name: "up-secret"
+                                        namespace: "backstage"
+                                    }
+                                    sourceRef = {
+                                        name: "e2e-backstage-test-robot-token"
+                                        namespace: "crossplane-system"
+                                    }
+                                }
+                            ]
                             infrastructure: {
                                 ingressNginx: {}
                                 certManager: {}
@@ -107,6 +119,21 @@ _items = [
                                 roleARN = "arn:aws:iam::609897127049:role/solutions-e2e-provider-aws"
                             }
                         }
+                    }
+                }
+                {
+                    apiVersion: "v1"
+                    kind: "Secret"
+                    metadata = {
+                        name: "e2e-backstage-test-robot-token"
+                        namespace: "crossplane-system"
+                        labels = {
+                            accessId: "e2e-test-access-id"
+                        }
+                    }
+                    type: "Opaque"
+                    stringData = {
+                        token: "949395e5-6f4c-4d3c-9f7e-3f5f5f5f5f5f" # Dummy token
                     }
                 }
             ]
