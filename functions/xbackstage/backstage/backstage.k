@@ -164,6 +164,7 @@ backstage = lambda config: Backstage -> any {
                                                     {
                                                         name: "local"
                                                         authProvider: "serviceAccount"
+                                                        url: "https://kubernetes.default.svc"
                                                         skipTLSVerify: False
                                                         skipMetricsLookup: True
                                                     }
