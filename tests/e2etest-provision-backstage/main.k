@@ -177,7 +177,7 @@ _items = [
                                 instanceType = "t3.small"
                             }
                             region = "us-west-1"
-                            version = "1.33"
+                            version = "1.27"
                         }
                         writeConnectionSecretToRef = {
                             name = "configuration-gitops-backstage-kubeconfig"
