@@ -18,6 +18,7 @@ _items = [
                         parameters = {
                             id: "e2e-backstage-test"
                             region: "us-west-1"
+                            deletionPolicy: "Delete"
                             providerConfigName: "default"
                             ingress = {
                                 enabled: True
@@ -77,32 +78,26 @@ _items = [
                                     }
                                 }
                             ]
-                            infrastructure = {
-                                lbController = {
-                                    enabled= True
-                                }
-                                certManager = {
-                                    enabled: True
-                                }
-                                ingressNginx = {
-                                    enabled: True
-                                }
-                                externalDNS = {
+                            infrastructure: {
+                                ingressNginx: {}
+                                certManager: {}
+                                lbController: {}
+                                externalDNS: {
                                     enabled: True
                                     route53ZoneId: "Z0115025YFQ7ZQF6BJ6N"
                                 }
-                                eks = {
+                                eks: {
                                     enabled: False
                                     clusterName: "configuration-gitops-backstage-cluster"
-                                    accessConfig = {
+                                    accessConfig: {
                                         bootstrapClusterCreatorAdminPermissions: True
                                         authenticationMode: "API"
                                     }
-                                    iam = {
+                                    iam: {
                                         principalArn: "arn:aws:iam::609897127049:role/solutions-e2e-provider-aws"
                                     }
                                     version: "1.31"
-                                    nodes = {
+                                    nodes: {
                                         count: 3
                                         instanceType: "t3.small"
                                     }
