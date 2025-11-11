@@ -78,6 +78,15 @@ _items = [
                                 }
                             ]
                             infrastructure = {
+                                lbController = {
+                                    enabled= True
+                                }
+                                certManager = {
+                                    enabled: True
+                                }
+                                ingressNginx = {
+                                    enabled: True
+                                }
                                 externalDNS = {
                                     enabled: True
                                     route53ZoneId: "Z0115025YFQ7ZQF6BJ6N"
