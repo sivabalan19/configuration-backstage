@@ -24,7 +24,7 @@ _xeks = platformawsv1alpha1.XEKS {
             }
             providerConfigName: "default"
             region: "us-west-2"
-            version: "1.27"
+            version: "1.31"
         }
         writeConnectionSecretToRef: {
             name: "test123"
