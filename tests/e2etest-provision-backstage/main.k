@@ -17,7 +17,7 @@ _items = [
                     spec = {
                         parameters = {
                             id: "e2e-backstage-test"
-                            region: "us-west-1"
+                            region: "us-west-2"
                             deletionPolicy: "Delete"
                             providerConfigName: "default"
                             ingress = {
@@ -66,18 +66,6 @@ _items = [
                                     }
                                 }
                             }
-                            secretSync: [
-                                {
-                                    destRef = {
-                                        name: "up-secret"
-                                        namespace: "backstage"
-                                    }
-                                    sourceRef = {
-                                        name: "e2e-backstage-test-robot-token"
-                                        namespace: "crossplane-system"
-                                    }
-                                }
-                            ]
                             infrastructure: {
                                 ingressNginx: {}
                                 certManager: {}
@@ -87,7 +75,7 @@ _items = [
                                     route53ZoneId: "Z0115025YFQ7ZQF6BJ6N"
                                 }
                                 eks: {
-                                    enabled: False
+                                    enabled: True
                                     clusterName: "configuration-gitops-backstage-cluster"
                                     accessConfig: {
                                         bootstrapClusterCreatorAdminPermissions: True
@@ -98,7 +86,7 @@ _items = [
                                     }
                                     version: "1.31"
                                     nodes: {
-                                        count: 3
+                                        count: 8
                                         instanceType: "t3.small"
                                     }
                                 }
@@ -109,12 +97,6 @@ _items = [
             ]
             extraResources: [
                 {
-                    apiVersion: "pkg.crossplane.io/v1"
-                    kind: "Configuration"
-                    metadata.name: "configuration-aws-eks"
-                    spec.package: "xpkg.upbound.io/upbound/configuration-aws-eks:v0.21.0"
-                }
-                {
                     apiVersion: "aws.upbound.io/v1beta1"
                     kind: "ProviderConfig"
                     metadata.name: "default"
@@ -124,62 +106,6 @@ _items = [
                             webIdentity = {
                                 roleARN = "arn:aws:iam::609897127049:role/solutions-e2e-provider-aws"
                             }
-                        }
-                    }
-                }
-                {
-                    apiVersion: "aws.platform.upbound.io/v1alpha1"
-                    kind: "XNetwork"
-                    metadata.name: "configuration-gitops-backstage-network"
-                    spec.parameters = {
-                        id: "uptest-gitops-backstage-cluster"
-                        region: "us-west-1"
-                        vpcCidrBlock: "192.168.0.0/16"
-                        subnets: [
-                            {
-                                availabilityZone: "us-west-1b"
-                                type: "public"
-                                cidrBlock: "192.168.0.0/18"
-                            }
-                            {
-                                availabilityZone: "us-west-1c"
-                                type: "public"
-                                cidrBlock: "192.168.64.0/18"
-                            }
-                            {
-                                availabilityZone: "us-west-1b"
-                                type: "private"
-                                cidrBlock: "192.168.128.0/18"
-                            }
-                            {
-                                availabilityZone: "us-west-1c"
-                                type: "private"
-                                cidrBlock: "192.168.192.0/18"
-                            }
-                        ]
-                    }
-                }
-                {
-                    apiVersion: "aws.platform.upbound.io/v1alpha1"
-                    kind: "XEKS"
-                    metadata.name: "configuration-gitops-backstage-cluster"
-                    spec = {
-                        parameters = {
-                            accessConfig = {
-                                authenticationMode = "API_AND_CONFIG_MAP"
-                                bootstrapClusterCreatorAdminPermissions = True
-                            }
-                            id = "uptest-gitops-backstage-cluster"
-                            nodes = {
-                                count = 3
-                                instanceType = "t3.small"
-                            }
-                            region = "us-west-1"
-                            version = "1.27"
-                        }
-                        writeConnectionSecretToRef = {
-                            name = "configuration-gitops-backstage-kubeconfig"
-                            namespace = "upbound-system"
                         }
                     }
                 }
